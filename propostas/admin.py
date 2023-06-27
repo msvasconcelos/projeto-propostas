@@ -1,38 +1,24 @@
 from django.contrib import admin
-from .models import Proposal, ProposalField, ProposalResponse, ProposalResponseField
-
-
-class ProposalResponseFieldInline(admin.TabularInline):
-    model = ProposalResponseField
-
-
-class ProposalResponseInline(admin.TabularInline):
-    model = ProposalResponse
-    extra = 1
+from .models import Proposal, ProposalResponse, ProposalField
 
 
 class ProposalFieldInline(admin.TabularInline):
     model = ProposalField
 
 
+@admin.register(Proposal)
 class ProposalAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'get_status', 'created_at')
-    inlines = [ProposalFieldInline, ProposalResponseInline]
-
-    def get_status(self, obj):
-        proposal_response = ProposalResponse.objects.filter(proposal_model=obj).first()
-        if proposal_response:
-            return proposal_response.get_status_display()
-        return ''
-
-    get_status.short_description = 'Status'
+    inlines = [ProposalFieldInline]
+    list_display = ['id', 'title', 'created_at']
 
 
+@admin.register(ProposalResponse)
 class ProposalResponseAdmin(admin.ModelAdmin):
-    inlines = [ProposalResponseFieldInline]
+    list_display = ['id', 'proposal_title', 'name', 'documents', 'status']
+
+    def proposal_title(self, obj):
+        return obj.proposal_model.title
+
+    proposal_title.short_description = 'Proposal Title'
 
 
-admin.site.register(Proposal, ProposalAdmin)
-admin.site.register(ProposalField)
-admin.site.register(ProposalResponse, ProposalResponseAdmin)
-admin.site.register(ProposalResponseField)
