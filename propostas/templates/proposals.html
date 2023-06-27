@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Listagem de Propostas</title>
+    <style>
+        /* Estilos CSS para a página */
+        .proposal {
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .proposal-title {
+            font-weight: bold;
+        }
+        .response-input {
+            margin-top: 10px;
+            width: 200px;
+        }
+        #submit-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Banco Loans For Good</h1>
+    <h2>Qual simulação financeira deseja realizar ?</h2>
+
+    <div id="proposals-list"></div>
+
+    <script>
+        // Função para carregar as propostas via API
+        function loadProposals() {
+            fetch('/api/proposals/')
+                .then(response => response.json())
+                .then(proposals => {
+                    const proposalsList = document.getElementById('proposals-list');
+
+                    proposals.forEach(proposal => {
+                        // Criar elemento para cada proposta
+                        const proposalContainer = document.createElement('div');
+                        proposalContainer.classList.add('proposal');
+
+                        // Título da proposta
+                        const proposalTitle = document.createElement('h2');
+                        proposalTitle.classList.add('proposal-title');
+                        proposalTitle.textContent = proposal.title;
+
+                        // Adicionar evento de clique no título da proposta
+                        proposalTitle.addEventListener('click', function() {
+                            // Redirecionar para a página de detalhes da proposta
+                            window.location.href = `proposal-details.html?proposal_id=${proposal.id}`;
+                        });
+
+                        proposalContainer.appendChild(proposalTitle);
+
+                        proposalsList.appendChild(proposalContainer);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar as propostas:', error);
+                });
+        }
+
+        // Carregar as propostas ao carregar a página
+        window.onload = function() {
+            loadProposals();
+        };
+    </script>
+</body>
+</html>
