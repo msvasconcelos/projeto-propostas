@@ -12,7 +12,9 @@ Certifique-se de ter os seguintes requisitos instalados em sua máquina:
 ## Configuração
 1. Clone o repositório do projeto:
    https://github.com/msvasconcelos/projeto-propostas.git
-   cd projeto-propostas
+
+cd projeto-propostas
+
 2. Execute o seguinte comando para construir as imagens do Docker e instalar as dependências:
    docker-compose up
 
@@ -28,5 +30,7 @@ O projeto estará disponível em `http://localhost:8000/`.
 
 ## Encerrando o Projeto
 Para encerrar o projeto, pressione `Ctrl+C` nos terminais em que o projeto está em execução e execute o seguinte comando:
+
 docker-compose down
+
 Isso encerrará os contêineres Docker associados ao projeto.
