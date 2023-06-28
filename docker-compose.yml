@@ -24,7 +24,7 @@ services:
 
   celery_worker:
     build: .
-    command: celery -A proposta_projeto worker -l info
+    command: celery -A celery_config worker -l info
     volumes:
       - .:/code
     depends_on:
