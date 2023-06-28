@@ -88,10 +88,10 @@ WSGI_APPLICATION = 'proposta_projeto.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lfg3',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'msv110496',
-        'HOST': 'localhost',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
